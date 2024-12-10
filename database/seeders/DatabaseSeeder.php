@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             TimeSeeder::class,
             ProvinsiSeeder::class,
             KotaSeeder::class,
+            RelationSeeder::class,
         ]);
     }
 }
