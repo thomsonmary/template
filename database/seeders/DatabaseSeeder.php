@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categorie;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,21 +17,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             UserSeeder::class,
-            RoleSeeder::class,
+            CategoriesTableSeeder::class,
+            CategoriesUsersTableSeeder::class,
+            RolesTableSeeder::class,
             RoleUserSeeder::class,
-            TemplateRpsSeeder::class,
-            TemplateSapSeeder::class,
-            SemesterSeeder::class,
-            RpsSeeder::class,
-            SapSeeder::class,
-            MatakuliahSeeder::class,
-            KaprodiSeeder::class,
-            DosenSeeder::class,
-            DBahanajarSeeder::class,
-            TimeSeeder::class,
-            ProvinsiSeeder::class,
-            KotaSeeder::class,
-            RelationSeeder::class,
+            TagsTableSeeder::class,
+            TemplatesTableSeeder::class,
+            PermissionSeeder::class,
+
         ]);
     }
 }

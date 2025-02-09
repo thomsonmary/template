@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -20,54 +20,47 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+  use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+  /**
+   * Where to redirect users after login.
+   *
+   * @var string
+   */
+  protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest')->except('logout');
+  }
+
+  public function redirectTo()
+  {
+    // if (Auth::user()->level == 'admin') {
+    //   $this->redirectTo = route('dashboard');
+    //   return $this->redirectTo;
+    // }
+    // Maksudnya sama dengan yg diatas 
+    if (Auth::user()->hasRole('admin')) {
+      $this->redirectTo = route('admin.users.dashboard');
+      return $this->redirectTo;
+    } else if (Auth::user()->hasRole('redaksi')) {
+      $this->redirectTo = route('admin.users.dashboard');
+      return $this->redirectTo;
+    } else if (Auth::user()->hasRole('kontributor')) {
+      $this->redirectTo = route('admin.users.dashboard');  // home
+      return $this->redirectTo;
     }
-
-    public function redirectTo()
-    {
-      // if (Auth::user()->level == 'admin') {
-      //   $this->redirectTo = route('dashboard');
-      //   return $this->redirectTo;
-      // }
-      // Maksudnya sama dengan yg diatas 
-      if (Auth::user()->hasRole('admin')) {
-        $this->redirectTo = route('dashboard');
-        return $this->redirectTo;
-      }
-      else if (Auth::user()->hasRole('dosen')) {
-        $this->redirectTo = route('dashboard');
-        return $this->redirectTo;
-      }
-      else if (Auth::user()->hasRole('gkm')) {
-        $this->redirectTo = route('dashboard');  // home
-        return $this->redirectTo;
-      }
-      // Coba Role Homeless
-      else if (Auth::user()->hasRole('homeless')) {
-        $this->redirectTo = route('home'); 
-        // $this->redirectTo = url('/home');
-        return $this->redirectTo;
-      }
-
-
-
-
-    }
-
+    // Coba Role Homeless
+    // else if (Auth::user()->hasRole('tamu')) {
+    //   $this->redirectTo = route('users.home');
+    //   // $this->redirectTo = url('/home');
+    //   return $this->redirectTo;
+    // }
+  }
 }
